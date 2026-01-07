@@ -680,7 +680,7 @@ pony-nightly:
   DO +BENCH --name "pony-nightly" --lang="Pony(nightly)" --version="ponyc --version" --cmd="./out/leibniz"
 
 nature:
-  FROM naturelang/nature:v0.7.1
+  FROM naturelang/nature:latest
   DO +PREPARE_ALPINE
   DO +ADD_FILES --src="leibniz.n"
   RUN --no-cache nature build leibniz.n -o leibniz
