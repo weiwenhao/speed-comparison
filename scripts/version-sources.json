@@ -63,6 +63,13 @@
     "earthfile_pattern": "alpine:(\\d+\\.\\d+)",
     "source_file": "leibniz.nim"
   },
+  "nature": {
+    "source": "docker",
+    "image": "naturelang/nature",
+    "earthfile_pattern": "naturelang/nature:v(\\d+\\.\\d+\\.\\d+)",
+    "tag_filter": "^v\\d+\\.\\d+\\.\\d+$",
+    "source_file": "leibniz.n"
+  },
   "odin": {
     "source": "github",
     "repo": "odin-lang/Odin",
