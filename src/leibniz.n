@@ -16,6 +16,5 @@ fn main() {
     }
 
     pi *= 4.0
-    // fmt.printf('%0.16f', pi)
-    println(pi)
+    fmt.printf('%0.16f', pi)
 }
