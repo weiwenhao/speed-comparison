@@ -153,7 +153,6 @@ collect-data:
   # Functional languages
   BUILD +elixir
   BUILD +erlang
-  BUILD +gleam
   BUILD +haskell
   BUILD +ocaml
   BUILD +racket
@@ -426,23 +425,6 @@ erlang:
   DO +ADD_FILES --src="leibniz.erl"
   RUN --no-cache erlc leibniz.erl
   DO +BENCH --name="erlang" --lang="Erlang" --version="cat /usr/lib/erlang/releases/*/OTP_VERSION" --cmd="erl -noshell -s leibniz main -s init stop"
-
-gleam:
-  FROM ghcr.io/gleam-lang/gleam:v1.13.0-erlang-alpine
-  DO +PREPARE_ALPINE
-  WORKDIR /app
-  RUN gleam new leibniz_app && cd leibniz_app && \
-      sed -i 's/\[dependencies\]/[dependencies]\nsimplifile = "~> 2.0"/' gleam.toml
-  COPY +build/scmeta ./leibniz_app/
-  COPY ./src/rounds.txt ./leibniz_app/
-  IF [ -n "$QUICK_TEST_ROUNDS" ]
-    RUN echo "$QUICK_TEST_ROUNDS" > ./leibniz_app/rounds.txt
-  END
-  COPY ./src/leibniz.gleam ./leibniz_app/src/leibniz_app.gleam
-  RUN cd leibniz_app && gleam deps download && gleam build
-  WORKDIR /app/leibniz_app
-  RUN apk add --no-cache hyperfine
-  DO +BENCH --name="gleam" --lang="Gleam" --version="gleam --version" --cmd="gleam run"
 
 haskell:
   FROM haskell:9.10-slim-bullseye
